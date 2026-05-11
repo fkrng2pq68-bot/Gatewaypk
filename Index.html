@@ -1,0 +1,408 @@
+import { useState } from “react”;
+
+const opportunities = [
+{
+id: 1,
+category: “scholarships”,
+title: “Ehsaas Undergraduate Scholarship”,
+org: “HEC Pakistan”,
+deadline: “June 30, 2026”,
+location: “Pakistan”,
+description: “Need-based scholarship for undergraduate students at HEC-recognized institutions.”,
+link: “#”,
+tag: “Full Funding”
+},
+{
+id: 2,
+category: “internships”,
+title: “Summer Internship Program”,
+org: “Unilever Pakistan”,
+deadline: “May 31, 2026”,
+location: “Karachi / Lahore”,
+description: “8-week paid internship for students in business, engineering, and social sciences.”,
+link: “#”,
+tag: “Paid”
+},
+{
+id: 3,
+category: “volunteer”,
+title: “Youth Volunteer Corps”,
+org: “Aurat Foundation”,
+deadline: “Rolling”,
+location: “Multiple Cities”,
+description: “Support community programs in gender equality, literacy, and legal aid across Pakistan.”,
+link: “#”,
+tag: “Open Now”
+},
+{
+id: 4,
+category: “skills”,
+title: “Digital Skills Bootcamp”,
+org: “Ignite National Technology Fund”,
+deadline: “July 15, 2026”,
+location: “Online”,
+description: “Free 6-week program covering web development, data literacy, and digital marketing.”,
+link: “#”,
+tag: “Free”
+},
+{
+id: 5,
+category: “scholarships”,
+title: “DAAD Scholarship – Germany”,
+org: “DAAD”,
+deadline: “October 15, 2026”,
+location: “Germany”,
+description: “Fully funded postgraduate scholarships for Pakistani students in STEM and social sciences.”,
+link: “#”,
+tag: “International”
+},
+{
+id: 6,
+category: “skills”,
+title: “Leadership for Change Program”,
+org: “Commonwealth Youth Programme”,
+deadline: “August 1, 2026”,
+location: “Online + Regional”,
+description: “Build leadership, project management, and advocacy skills through workshops and mentoring.”,
+link: “#”,
+tag: “Certificate”
+},
+{
+id: 7,
+category: “internships”,
+title: “UN Youth Volunteer Program”,
+org: “UNDP Pakistan”,
+deadline: “June 15, 2026”,
+location: “Islamabad”,
+description: “Work with UN development projects focused on climate, poverty, and governance.”,
+link: “#”,
+tag: “Prestigious”
+},
+{
+id: 8,
+category: “volunteer”,
+title: “Teach a Child – Reading Initiative”,
+org: “The Citizens Foundation”,
+deadline: “Rolling”,
+location: “Nationwide”,
+description: “Weekend volunteer teaching sessions at TCF schools in your city.”,
+link: “#”,
+tag: “Weekend”
+},
+];
+
+const categories = [
+{ id: “all”, label: “All”, icon: “◈” },
+{ id: “scholarships”, label: “Scholarships”, icon: “🎓” },
+{ id: “internships”, label: “Internships”, icon: “💼” },
+{ id: “volunteer”, label: “Volunteer”, icon: “🤝” },
+{ id: “skills”, label: “Skill Programs”, icon: “⚡” },
+];
+
+const tagColors = {
+“Full Funding”: “#4ade80”,
+“Paid”: “#60a5fa”,
+“Open Now”: “#f97316”,
+“Free”: “#a78bfa”,
+“International”: “#f43f5e”,
+“Certificate”: “#fbbf24”,
+“Prestigious”: “#06b6d4”,
+“Weekend”: “#84cc16”,
+};
+
+export default function App() {
+const [page, setPage] = useState(“home”);
+const [activeCategory, setActiveCategory] = useState(“all”);
+const [formData, setFormData] = useState({ name: “”, email: “”, opp: “”, details: “” });
+const [submitted, setSubmitted] = useState(false);
+const [menuOpen, setMenuOpen] = useState(false);
+
+const filtered = activeCategory === “all”
+? opportunities
+: opportunities.filter(o => o.category === activeCategory);
+
+const handleSubmit = () => {
+if (formData.name && formData.email) {
+setSubmitted(true);
+}
+};
+
+return (
+<div style={{ fontFamily: “‘Georgia’, ‘Times New Roman’, serif”, background: “#0a0a0f”, minHeight: “100vh”, color: “#e8e4dc” }}>
+<style>{`@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&display=swap'); * { box-sizing: border-box; margin: 0; padding: 0; } body { background: #0a0a0f; } .nav-link { cursor: pointer; transition: color 0.2s; letter-spacing: 0.08em; font-size: 0.78rem; text-transform: uppercase; font-family: 'DM Sans', sans-serif; font-weight: 500; } .nav-link:hover { color: #c9a84c; } .nav-link.active { color: #c9a84c; } .card { transition: transform 0.25s ease, box-shadow 0.25s ease; } .card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(201,168,76,0.12); } .cat-btn { cursor: pointer; transition: all 0.2s; border: 1px solid rgba(201,168,76,0.25); padding: 8px 20px; border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 0.82rem; letter-spacing: 0.05em; } .cat-btn:hover { border-color: #c9a84c; color: #c9a84c; } .cat-btn.active { background: #c9a84c; color: #0a0a0f; border-color: #c9a84c; font-weight: 600; } .cta-btn { cursor: pointer; transition: all 0.25s; } .cta-btn:hover { background: #b8962a !important; } .submit-btn { cursor: pointer; transition: background 0.2s; } .submit-btn:hover { background: #b8962a !important; } input, textarea { outline: none; } input:focus, textarea:focus { border-color: #c9a84c !important; } .phase-card:hover { border-color: rgba(201,168,76,0.5) !important; } .phase-card { transition: border-color 0.2s; } a { color: inherit; text-decoration: none; } @keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } } .fade-up { animation: fadeUp 0.6s ease both; } .fade-up-d1 { animation-delay: 0.1s; } .fade-up-d2 { animation-delay: 0.2s; } .fade-up-d3 { animation-delay: 0.3s; } .grain { position:fixed; inset:0; pointer-events:none; z-index:999; opacity:0.025; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E"); }`}</style>
+
+```
+  <div className="grain" />
+
+  {/* NAV */}
+  <nav style={{ position: "sticky", top: 0, zIndex: 100, background: "rgba(10,10,15,0.92)", backdropFilter: "blur(12px)", borderBottom: "1px solid rgba(201,168,76,0.15)", padding: "0 5%" }}>
+    <div style={{ maxWidth: 1100, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", height: 64 }}>
+      <div onClick={() => setPage("home")} style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: 10 }}>
+        <div style={{ width: 28, height: 28, background: "#c9a84c", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <span style={{ fontSize: 14, color: "#0a0a0f", fontWeight: 900 }}>◈</span>
+        </div>
+        <span style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.15rem", fontWeight: 700, letterSpacing: "0.02em", color: "#e8e4dc" }}>
+          OpportuNest
+        </span>
+      </div>
+      <div style={{ display: "flex", gap: 36 }}>
+        {["home","opportunities","about","contact"].map(p => (
+          <span key={p} className={`nav-link ${page === p ? "active" : ""}`} style={{ color: page === p ? "#c9a84c" : "#9a9590" }} onClick={() => setPage(p)}>
+            {p.charAt(0).toUpperCase() + p.slice(1)}
+          </span>
+        ))}
+      </div>
+    </div>
+  </nav>
+
+  {/* HOME */}
+  {page === "home" && (
+    <div>
+      {/* Hero */}
+      <div style={{ minHeight: "88vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "80px 5%", textAlign: "center", position: "relative", overflow: "hidden" }}>
+        <div style={{ position: "absolute", top: "20%", left: "50%", transform: "translateX(-50%)", width: 600, height: 600, background: "radial-gradient(ellipse, rgba(201,168,76,0.07) 0%, transparent 70%)", pointerEvents: "none" }} />
+        <div className="fade-up" style={{ display: "inline-block", border: "1px solid rgba(201,168,76,0.4)", padding: "6px 18px", borderRadius: 2, fontSize: "0.72rem", letterSpacing: "0.18em", color: "#c9a84c", fontFamily: "'DM Sans',sans-serif", marginBottom: 36, textTransform: "uppercase" }}>
+          Youth Empowerment Initiative · Pakistan
+        </div>
+        <h1 className="fade-up fade-up-d1" style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(2.8rem, 7vw, 5.5rem)", fontWeight: 900, lineHeight: 1.08, maxWidth: 800, color: "#e8e4dc" }}>
+          Every student deserves to<br />
+          <em style={{ color: "#c9a84c" }}>know what's possible.</em>
+        </h1>
+        <p className="fade-up fade-up-d2" style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 300, fontSize: "1.1rem", lineHeight: 1.75, maxWidth: 560, color: "#9a9590", marginTop: 28 }}>
+          OpportuNest connects young Pakistanis to scholarships, internships, volunteer programs, and skill-building opportunities — all in one place.
+        </p>
+        <div className="fade-up fade-up-d3" style={{ display: "flex", gap: 16, marginTop: 44, flexWrap: "wrap", justifyContent: "center" }}>
+          <button className="cta-btn" onClick={() => setPage("opportunities")} style={{ background: "#c9a84c", color: "#0a0a0f", border: "none", padding: "14px 36px", fontFamily: "'DM Sans',sans-serif", fontWeight: 600, fontSize: "0.9rem", letterSpacing: "0.06em", cursor: "pointer", textTransform: "uppercase" }}>
+            Browse Opportunities
+          </button>
+          <button className="cta-btn" onClick={() => setPage("about")} style={{ background: "transparent", color: "#e8e4dc", border: "1px solid rgba(232,228,220,0.25)", padding: "14px 36px", fontFamily: "'DM Sans',sans-serif", fontWeight: 400, fontSize: "0.9rem", letterSpacing: "0.06em", cursor: "pointer", textTransform: "uppercase" }}>
+            Our Mission
+          </button>
+        </div>
+      </div>
+
+      {/* Stats strip */}
+      <div style={{ borderTop: "1px solid rgba(201,168,76,0.12)", borderBottom: "1px solid rgba(201,168,76,0.12)", padding: "40px 5%", background: "rgba(201,168,76,0.03)" }}>
+        <div style={{ maxWidth: 1100, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 24, textAlign: "center" }}>
+          {[["8+", "Live Opportunities"], ["4", "Categories"], ["3", "Partner NGOs"], ["V1", "Launched 2026"]].map(([num, label]) => (
+            <div key={label}>
+              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "2.4rem", fontWeight: 900, color: "#c9a84c" }}>{num}</div>
+              <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: "0.8rem", color: "#6b6560", letterSpacing: "0.08em", textTransform: "uppercase", marginTop: 4 }}>{label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Categories */}
+      <div style={{ padding: "80px 5%", maxWidth: 1100, margin: "0 auto" }}>
+        <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "2rem", fontWeight: 700, marginBottom: 48, color: "#e8e4dc" }}>
+          What we <em style={{ color: "#c9a84c" }}>curate</em>
+        </h2>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(230px, 1fr))", gap: 20 }}>
+          {[
+            { icon: "🎓", title: "Scholarships", desc: "Local and international funding opportunities for students at every level.", cat: "scholarships" },
+            { icon: "💼", title: "Internships", desc: "Paid and unpaid placements at NGOs, startups, and multinational companies.", cat: "internships" },
+            { icon: "🤝", title: "Volunteer Work", desc: "Give back to your community and build real-world experience.", cat: "volunteer" },
+            { icon: "⚡", title: "Skill Programs", desc: "Bootcamps, workshops, and certifications to sharpen your edge.", cat: "skills" },
+          ].map(item => (
+            <div key={item.title} className="card phase-card" onClick={() => { setPage("opportunities"); setActiveCategory(item.cat); }}
+              style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(201,168,76,0.12)", padding: "32px 28px", cursor: "pointer" }}>
+              <div style={{ fontSize: "2rem", marginBottom: 16 }}>{item.icon}</div>
+              <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.2rem", color: "#e8e4dc", marginBottom: 10 }}>{item.title}</h3>
+              <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: "0.85rem", color: "#6b6560", lineHeight: 1.7 }}>{item.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Roadmap */}
+      <div style={{ padding: "80px 5%", background: "rgba(201,168,76,0.03)", borderTop: "1px solid rgba(201,168,76,0.1)" }}>
+        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "2rem", fontWeight: 700, marginBottom: 12, color: "#e8e4dc" }}>The <em style={{ color: "#c9a84c" }}>Roadmap</em></h2>
+          <p style={{ fontFamily: "'DM Sans',sans-serif", color: "#6b6560", fontSize: "0.9rem", marginBottom: 48 }}>Where we are, and where we're going.</p>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 20 }}>
+            {[
+              { phase: "Phase 1", time: "Now — Month 1", title: "MVP Launch", status: "✅ Live", items: ["Website launched", "8 curated opportunities", "Contact form live", "4 core categories"] },
+              { phase: "Phase 2", time: "Month 2–4", title: "Growth + Workshops", status: "🔜 Upcoming", items: ["School workshops", "Student onboarding", "Feedback collection", "Community building"] },
+              { phase: "Phase 3", time: "Month 4–12", title: "Expansion", status: "📅 Planned", items: ["NGO partnerships", "Search + filters", "Login system", "Database growth"] },
+            ].map((p, i) => (
+              <div key={p.phase} className="phase-card" style={{ border: `1px solid ${i === 0 ? "rgba(201,168,76,0.5)" : "rgba(201,168,76,0.12)"}`, padding: "28px 24px", background: i === 0 ? "rgba(201,168,76,0.04)" : "transparent" }}>
+                <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: "0.7rem", color: "#c9a84c", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: 8 }}>{p.phase} · {p.time}</div>
+                <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.3rem", color: "#e8e4dc", marginBottom: 6 }}>{p.title}</h3>
+                <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: "0.78rem", color: "#9a9590", marginBottom: 18 }}>{p.status}</div>
+                <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
+                  {p.items.map(it => (
+                    <li key={it} style={{ fontFamily: "'DM Sans',sans-serif", fontSize: "0.83rem", color: "#6b6560", paddingLeft: 16, position: "relative" }}>
+                      <span style={{ position: "absolute", left: 0, color: "#c9a84c" }}>›</span>
+                      {it}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  )}
+
+  {/* OPPORTUNITIES */}
+  {page === "opportunities" && (
+    <div style={{ padding: "64px 5%", maxWidth: 1100, margin: "0 auto" }}>
+      <div className="fade-up" style={{ marginBottom: 48 }}>
+        <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: "0.72rem", color: "#c9a84c", letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: 12 }}>Curated for you</div>
+        <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 900, color: "#e8e4dc" }}>Opportunities</h1>
+      </div>
+
+      {/* Filters */}
+      <div style={{ display: "flex", gap: 10, flexWrap: "wrap", marginBottom: 48 }}>
+        {categories.map(c => (
+          <button key={c.id} className={`cat-btn ${activeCategory === c.id ? "active" : ""}`}
+            style={{ background: activeCategory === c.id ? "#c9a84c" : "transparent", color: activeCategory === c.id ? "#0a0a0f" : "#9a9590" }}
+            onClick={() => setActiveCategory(c.id)}>
+            {c.icon} {c.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Grid */}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: 20 }}>
+        {filtered.map((opp, i) => (
+          <div key={opp.id} className="card" style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(201,168,76,0.12)", padding: "28px 24px", animation: `fadeUp 0.5s ease ${i * 0.07}s both` }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 14 }}>
+              <span style={{ fontFamily: "'DM Sans',sans-serif", fontSize: "0.68rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#c9a84c" }}>
+                {categories.find(c => c.id === opp.category)?.icon} {opp.category}
+              </span>
+              <span style={{ background: tagColors[opp.tag] || "#c9a84c", color: "#0a0a0f", fontSize: "0.65rem", fontFamily: "'DM Sans',sans-serif", fontWeight: 700, padding: "3px 9px", borderRadius: 2, letterSpacing: "0.04em" }}>
+                {opp.tag}
+              </span>
+            </div>
+            <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.15rem", color: "#e8e4dc", marginBottom: 6, lineHeight: 1.35 }}>{opp.title}</h3>
+            <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: "0.78rem", color: "#c9a84c", marginBottom: 12 }}>{opp.org}</div>
+            <p style={{ fontFamily: "'DM Sans',sans-serif", fontSize: "0.84rem", color: "#6b6560", lineHeight: 1.7, marginBottom: 20 }}>{opp.description}</p>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderTop: "1px solid rgba(201,168,76,0.1)", paddingTop: 14 }}>
+              <div>
+                <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: "0.68rem", color: "#4a4540", letterSpacing: "0.08em", textTransform: "uppercase" }}>Deadline</div>
+                <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: "0.8rem", color: "#9a9590", marginTop: 2 }}>{opp.deadline}</div>
+              </div>
+              <div style={{ textAlign: "right" }}>
+                <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: "0.68rem", color: "#4a4540", letterSpacing: "0.08em", textTransform: "uppercase" }}>Location</div>
+                <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: "0.8rem", color: "#9a9590", marginTop: 2 }}>{opp.location}</div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {filtered.length === 0 && (
+        <div style={{ textAlign: "center", padding: "80px 0", color: "#4a4540", fontFamily: "'DM Sans',sans-serif" }}>No opportunities in this category yet. Check back soon.</div>
+      )}
+    </div>
+  )}
+
+  {/* ABOUT */}
+  {page === "about" && (
+    <div style={{ padding: "64px 5%", maxWidth: 900, margin: "0 auto" }}>
+      <div className="fade-up" style={{ marginBottom: 64 }}>
+        <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: "0.72rem", color: "#c9a84c", letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: 12 }}>Who we are</div>
+        <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(2.2rem, 5vw, 3.5rem)", fontWeight: 900, color: "#e8e4dc", lineHeight: 1.12, marginBottom: 32 }}>
+          Built by a student,<br /><em style={{ color: "#c9a84c" }}>for every student.</em>
+        </h1>
+        <div style={{ fontFamily: "'DM Sans',sans-serif", lineHeight: 1.9, color: "#9a9590", fontSize: "1rem", maxWidth: 680, display: "flex", flexDirection: "column", gap: 18 }}>
+          <p>Too many young Pakistanis miss out on scholarships, programs, and opportunities — not because they aren't qualified, but because they simply don't know these opportunities exist. Information is scattered, hard to find, and rarely shared in accessible ways.</p>
+          <p>OpportuNest is a youth-led initiative to change that. We curate verified opportunities across scholarships, internships, volunteer work, and skill programs — and make them free, accessible, and easy to act on.</p>
+          <p>This is Version 1. We're a small team with a big vision: a future where every student in Pakistan, regardless of their city or background, has equal access to opportunities that shape their future.</p>
+        </div>
+      </div>
+
+      <div style={{ border: "1px solid rgba(201,168,76,0.2)", padding: "36px 32px", background: "rgba(201,168,76,0.03)", marginBottom: 40 }}>
+        <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.5rem", color: "#c9a84c", marginBottom: 20 }}>Our Values</h2>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
+          {[["Accessibility", "Opportunities should be visible to everyone, not just those with connections."], ["Accuracy", "Every listing is verified before it goes live. No spam, no outdated posts."], ["Community", "This platform grows with student feedback, suggestions, and contributions."], ["Action", "We don't just list things — we teach students how to apply and succeed."]].map(([v, d]) => (
+            <div key={v}>
+              <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "1rem", color: "#e8e4dc", marginBottom: 6 }}>{v}</div>
+              <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: "0.83rem", color: "#6b6560", lineHeight: 1.7 }}>{d}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
+        <button className="cta-btn" onClick={() => setPage("opportunities")} style={{ background: "#c9a84c", color: "#0a0a0f", border: "none", padding: "13px 32px", fontFamily: "'DM Sans',sans-serif", fontWeight: 600, fontSize: "0.88rem", letterSpacing: "0.06em", cursor: "pointer", textTransform: "uppercase" }}>
+          Browse Opportunities
+        </button>
+        <button className="cta-btn" onClick={() => setPage("contact")} style={{ background: "transparent", color: "#e8e4dc", border: "1px solid rgba(232,228,220,0.2)", padding: "13px 32px", fontFamily: "'DM Sans',sans-serif", fontSize: "0.88rem", letterSpacing: "0.06em", cursor: "pointer", textTransform: "uppercase" }}>
+          Submit an Opportunity
+        </button>
+      </div>
+    </div>
+  )}
+
+  {/* CONTACT */}
+  {page === "contact" && (
+    <div style={{ padding: "64px 5%", maxWidth: 700, margin: "0 auto" }}>
+      <div className="fade-up" style={{ marginBottom: 48 }}>
+        <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: "0.72rem", color: "#c9a84c", letterSpacing: "0.18em", textTransform: "uppercase", marginBottom: 12 }}>Get in touch</div>
+        <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 900, color: "#e8e4dc", marginBottom: 16 }}>Submit an Opportunity</h1>
+        <p style={{ fontFamily: "'DM Sans',sans-serif", color: "#6b6560", fontSize: "0.9rem", lineHeight: 1.75 }}>Know of a scholarship, internship, or program that should be listed here? Share it and help your peers.</p>
+      </div>
+
+      {!submitted ? (
+        <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+          {[["name", "Your Name", "text"], ["email", "Your Email", "email"], ["opp", "Opportunity Title / Link", "text"]].map(([key, placeholder, type]) => (
+            <div key={key}>
+              <label style={{ fontFamily: "'DM Sans',sans-serif", fontSize: "0.72rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#4a4540", display: "block", marginBottom: 8 }}>{placeholder}</label>
+              <input type={type} placeholder={placeholder}
+                value={formData[key]}
+                onChange={e => setFormData({ ...formData, [key]: e.target.value })}
+                style={{ width: "100%", background: "rgba(255,255,255,0.03)", border: "1px solid rgba(201,168,76,0.2)", color: "#e8e4dc", padding: "14px 16px", fontFamily: "'DM Sans',sans-serif", fontSize: "0.9rem", transition: "border-color 0.2s" }} />
+            </div>
+          ))}
+          <div>
+            <label style={{ fontFamily: "'DM Sans',sans-serif", fontSize: "0.72rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#4a4540", display: "block", marginBottom: 8 }}>Details / Message</label>
+            <textarea placeholder="Tell us about the opportunity — category, deadline, who it's for..."
+              rows={5}
+              value={formData.details}
+              onChange={e => setFormData({ ...formData, details: e.target.value })}
+              style={{ width: "100%", background: "rgba(255,255,255,0.03)", border: "1px solid rgba(201,168,76,0.2)", color: "#e8e4dc", padding: "14px 16px", fontFamily: "'DM Sans',sans-serif", fontSize: "0.9rem", resize: "vertical", transition: "border-color 0.2s" }} />
+          </div>
+          <button className="submit-btn" onClick={handleSubmit}
+            style={{ background: "#c9a84c", color: "#0a0a0f", border: "none", padding: "15px", fontFamily: "'DM Sans',sans-serif", fontWeight: 700, fontSize: "0.88rem", letterSpacing: "0.1em", cursor: "pointer", textTransform: "uppercase", marginTop: 8 }}>
+            Submit Opportunity →
+          </button>
+        </div>
+      ) : (
+        <div className="fade-up" style={{ border: "1px solid rgba(201,168,76,0.3)", padding: "48px 36px", textAlign: "center", background: "rgba(201,168,76,0.04)" }}>
+          <div style={{ fontSize: "2.5rem", marginBottom: 20 }}>✦</div>
+          <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.8rem", color: "#c9a84c", marginBottom: 12 }}>Thank you!</h2>
+          <p style={{ fontFamily: "'DM Sans',sans-serif", color: "#6b6560", lineHeight: 1.75, fontSize: "0.9rem" }}>Your submission has been received. We'll review it and add it to the platform if it's a good fit.</p>
+          <button onClick={() => { setSubmitted(false); setFormData({ name: "", email: "", opp: "", details: "" }); }}
+            style={{ marginTop: 28, background: "transparent", border: "1px solid rgba(201,168,76,0.3)", color: "#c9a84c", padding: "10px 24px", fontFamily: "'DM Sans',sans-serif", fontSize: "0.82rem", cursor: "pointer", letterSpacing: "0.08em" }}>
+            Submit Another
+          </button>
+        </div>
+      )}
+    </div>
+  )}
+
+  {/* FOOTER */}
+  <footer style={{ borderTop: "1px solid rgba(201,168,76,0.1)", padding: "40px 5%", marginTop: 80 }}>
+    <div style={{ maxWidth: 1100, margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 20 }}>
+      <div>
+        <div style={{ fontFamily: "'Playfair Display', serif", fontSize: "1rem", color: "#e8e4dc", marginBottom: 4 }}>OpportuNest</div>
+        <div style={{ fontFamily: "'DM Sans',sans-serif", fontSize: "0.78rem", color: "#4a4540" }}>Connecting Pakistani youth to opportunity · Version 1.0 · 2026</div>
+      </div>
+      <div style={{ display: "flex", gap: 28 }}>
+        {["home","opportunities","about","contact"].map(p => (
+          <span key={p} className="nav-link" style={{ color: "#4a4540" }} onClick={() => setPage(p)}>
+            {p.charAt(0).toUpperCase() + p.slice(1)}
+          </span>
+        ))}
+      </div>
+    </div>
+  </footer>
+</div>
+```
+
+);
+}
